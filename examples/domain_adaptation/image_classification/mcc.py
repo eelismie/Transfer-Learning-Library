@@ -54,7 +54,7 @@ def main(args: argparse.Namespace):
     print("train_transform: ", train_transform)
     print("val_transform: ", val_transform)
 
-    train_source_dataset, train_target_dataset, val_dataset, test_dataset, test_dataset_source, num_clases, args.class_names = \
+    train_source_dataset, train_target_dataset, val_dataset, test_dataset, test_dataset_source, num_classes, args.class_names = \
         utils.get_dataset(args.data, args.root, args.source, args.target, train_transform, val_transform)
     train_source_loader = DataLoader(train_source_dataset, batch_size=args.batch_size,
                                      shuffle=True, num_workers=args.workers, drop_last=True)
