@@ -131,7 +131,7 @@ def main(args: argparse.Namespace):
     acc1 = utils.validate(test_loader, classifier, args, device)
     acc1_s = utils.validate(test_source_loader, classifier, args, device)
     print("test_acc1 = {:3.1f}".format(acc1))
-    print("test_source_acc1 = {:3.1f}".format(acc1)) 
+    print("test_source_acc1 = {:3.1f}".format(acc1_s)) 
 
     logger.close()
 
