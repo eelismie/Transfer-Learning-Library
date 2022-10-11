@@ -57,20 +57,28 @@ def get_dataset_names():
 def get_dataset(dataset_name, root, source, target, train_source_transform, val_transform, train_target_transform=None):
     if train_target_transform is None:
         train_target_transform = train_source_transform
+
     if dataset_name == "Digits":
+
+        #current software has the issue that not all datasets have a train test split like with MNIST 
+
         train_source_dataset = datasets.__dict__[source[0]](osp.join(root, source[0]), download=True,
-                                                            transform=train_source_transform)
+            transform=train_source_transform)
+
         train_target_dataset = datasets.__dict__[target[0]](osp.join(root, target[0]), download=True,
-                                                            transform=train_target_transform)
+            transform=train_target_transform)
 
-        val_dataset = test_dataset = datasets.__dict__[target[0]](osp.join(root, target[0]), split='test',
-                                                                  download=True, transform=val_transform)
+        val_dataset = test_dataset = datasets.__dict__[target[0]](osp.join(root, target[0]),
+            download=True, transform=val_transform, split="test")
 
-        test_dataset_source = datasets.__dict__[source[0]](osp.join(root, source[0]), split='test', download=True, transform=val_transform)
+        obj = datasets.__dict__[source[0]]
+        print(type(obj), obj)
+
+        #the above line bombs for some reason (split kwarg not recognized)
 
         class_names = datasets.MNIST.get_classes()
         num_classes = len(class_names)
-        return train_source_dataset, train_target_dataset, val_dataset, test_dataset, test_dataset_source, num_classes, class_names 
+        return train_source_dataset, train_target_dataset, val_dataset, test_dataset, num_classes, class_names 
 
     elif dataset_name in datasets.__dict__:
         # load datasets from tllib.vision.datasets
